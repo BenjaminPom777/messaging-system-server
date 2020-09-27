@@ -1,38 +1,45 @@
-const messages = require('../data/messages.json');
-const { getAllUsers, sendMessage, getUsersMessages } = require('./../handlers/mysqlHandler');
+const messages = [];
 
-const getMessagesHandler = (req, res) => {
-    // const messages=[{"id":1,"message":"bla bla bla"},{"id":2,"message":"xxxxx"}]
-    // const messages=messages
-    const id = req.query.id;
-    res.status(200).send(messages)
-    return;
+const getUserMessagesHandler = (req, res) => {
+    const receiverId = req.query.id;
+    const messagesToReturn = [];
+    for (const message of messages) {
+        if (message.senderId === receiverId || message.receiverId === receiverId) {
+            messagesToReturn.push(message)
+        }
+    }
+    return res.status(200).send(messagesToReturn);
 }
 
-
-const getUserMessagesHandler =async (req, res) => {
-    try {
-        const id = req.query.id;
-        const result = await getUsersMessages(id)
-        return res.status(200).send(result)   
-    } catch (error) {
-        return res.status(500).send('Something went wrong')
-    }    
-}
-
-const postMessageHandler = async (req, res) => {
-    const message = req.body;
-    try {
-        await sendMessage(message.payload);
-        return res.status(200).send('ok')
-    } catch (error) {
-        return res.status(500).send('something went wrong')
+const postMessageHandler = (req, res) => {
+    let message = req.body
+    message.id = Date.now().toString();
+    if (message.receiverId && message.senderId) {
+        messages.push(message);
+        console.log('messages :', messages)
+        return res.status(200).json('ok')
+    } else {
+        return res.status(404).json('Something went wrong')
     }
 }
 
+const deleteMessageHandler = (req, res) => {
+    const id = req.query[0];
+    for (let index = 0; index < messages.length; index++) {
+        const message = messages[index];
+        if (message.id === id) {
+            messages.splice(index, 1)
+        }
+    }
+    console.log('messages :', messages)
+    res.status(200).send(messages)
+}
+
+
 
 module.exports = {
-    getMessagesHandler,
+    // getMessagesHandler,
     postMessageHandler,
-    getUserMessagesHandler
+    getUserMessagesHandler,
+    deleteMessageHandler
 }
