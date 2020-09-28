@@ -5,6 +5,7 @@ import { userRegister, userLogin } from './../../redux/actions/userActions';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import {clearMessages} from './../../redux/actions/userActions';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -15,41 +16,57 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+
+
 export default function Login() {
+    
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const { register, handleSubmit, errors, reset, control } = useForm();
+    const {  handleSubmit, errors, setValue, control } = useForm();
 
     const submitLogin = (data) => {
         console.log('login: ', data)
         dispatch(userLogin(data))
-        // reset()
+        setValue("userName", "")
+        setValue("password", "")        
     }
 
     const submitRegister = (data) => {
         dispatch(userRegister(data))
         console.log('register: ', data)
-        // reset()
+        setValue("userName", "")
+        setValue("password", "")        
     }
 
-    const {user:{error}}=useSelector(state=>state)
+    const clearMessage =()=>{        
+        dispatch(clearMessages())
+    }
+
+
+    const {user:{errorMessage,successMessage }}=useSelector(state=>state)
     
     
     return (
+        
         <div>
-            {error && <span style={{
+    
+            {/* <button onClick={swaltestFunc}>test swal</button> */}
+
+            {errorMessage && <span style={{
                 color:'red'
-            }}>{error}</span>}
+            }}>{errorMessage}</span>}
+            {successMessage && <span style={{
+                color:'green'
+            }}>{successMessage}</span>}
         <form className={classes.root} >            
             <Controller
-                as={<TextField />}
+                as={<TextField onFocus={()=>{clearMessage()}}/>}                                   
                 name="userName"
                 control={control}
                 defaultValue=""
                 placeholder="name"
-                rules={{ required: true }}
-            // ref={register({required:true})}
+                rules={{ required: true }}                
             />
             {errors.userName && <span style={{
                 color: 'red'
@@ -57,12 +74,12 @@ export default function Login() {
             <br />
                         
             <Controller
-                as={TextField}
+                as={<TextField onFocus={()=>{clearMessage()}} /> }
                 name="password"
                 control={control}
                 defaultValue=""
                 placeholder="password"
-                rules={{ required: true }}
+                rules={{ required: true}}
             // ref={register({required:true})}
             />
             {errors.password && <span style={{

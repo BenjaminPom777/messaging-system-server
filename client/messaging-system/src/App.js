@@ -12,7 +12,7 @@ import Nav from './components/nav/Nav';
 import Login from './components/login/Login';
 import {getUserInfo} from './redux/actions/userActions'
 import { mySaga } from './redux/sagas/Saga';
-
+import {ProtectedRoute} from './components/router/ProtectedRoute';
 
 const rootReducer = combineReducers(
   reducers
@@ -47,19 +47,16 @@ function AppBody(){
    <Router>  
       
         <div className="App">
-          {user.isLogedIn?
-            <Fragment>           
-              <Nav />
+          {user.isLogedIn  && <Nav />}
+              
                       
               <Switch>
-                <Route path="/" exact component={Home} />
-                <Route path="/compose" component={Compose} />
-                <Route path="/manage" component={Manage} />
+                <ProtectedRoute path="/home" exact component={Home} />
+                <ProtectedRoute path="/compose" component={Compose} />
+                <ProtectedRoute path="/manage" component={Manage} />
               </Switch>
-               
-            </Fragment>:
-            <Login />
-          }
+               {!user.isLogedIn &&  <Route path="/" component={Login} />}
+        
         </div>
     </Router>)
 }
