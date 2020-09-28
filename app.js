@@ -29,7 +29,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, 'client/messaging-system/build')));
 
 const initializePassport = require('./passport-config')
 initializePassport(
@@ -121,7 +121,7 @@ function checkAuthenticated(req, res, next) {
 }
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'/client/build/index.html'));
+  res.sendFile(path.join(__dirname+'/client/messaging-system/build/index.html'));
 });
 
 
