@@ -21,7 +21,7 @@ export default function Nav(props) {
     return (
         <nav>
                       
-            <Link style={navStyle} to="/">
+            <Link style={navStyle} to="/user">
                 <h3>{email}</h3>
             </Link>
             <ul className="nav-links">
