@@ -1,7 +1,7 @@
-export const CLEAR_MESSAGES='CLEAR_MESSAGES';
+export const CLEAR_LOGIN_MESSAGES='CLEAR_LOGIN_MESSAGES';
 export const clearMessages =()=>{
   return{
-    type: CLEAR_MESSAGES
+    type: CLEAR_LOGIN_MESSAGES
   }
 }
 

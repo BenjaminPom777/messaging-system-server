@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider,useSelector ,useDispatch} from 'react-redux';
@@ -38,11 +38,12 @@ function App() {
 }
 
 function AppBody(){
+  
   const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getUserInfo(user.userId))
-    }, [])   
-
+  useEffect(() => {
+    dispatch(getUserInfo(user.userId))
+  }, [])   
+  
   const {user}= useSelector(state=>state)
 
   return (

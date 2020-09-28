@@ -4,8 +4,7 @@ function Compose(props) {
     
     return (
         <div>
-            <MessageForm />
-            {/* Compose Messages */}
+            <MessageForm />            
         </div>
     )
 }

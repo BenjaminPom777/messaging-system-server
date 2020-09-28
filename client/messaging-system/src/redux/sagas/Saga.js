@@ -14,7 +14,7 @@ import {
     GET_USER_INFO,GET_USER_INFO_FAIL,GET_USER_INFO_START,
     LOGOUT,LOGOUT_FAIL,LOGOUT_START
 } from '../actions/userActions';
-import { act } from 'react-dom/test-utils';
+
 
 
 function* getMessage(action) {

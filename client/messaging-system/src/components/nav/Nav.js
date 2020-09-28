@@ -1,13 +1,10 @@
 import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import { Link } from 'react-router-dom';
 import {userLogout} from './../../redux/actions/userActions';
 
 
-export default function Nav(props) {
-
-    const {user} = useSelector(state => state);
-    const {email} = user;
+export default function Nav() {
 
     const navStyle = {
         color: 'white'
@@ -22,18 +19,18 @@ export default function Nav(props) {
         <nav>
                       
             <Link style={navStyle} to="/user">
-                <h3>{email}</h3>
+                <h3>Profile</h3>
             </Link>
             <ul className="nav-links">
                 <Link style={navStyle} to='/compose'>
-                    <li>Compose Email</li>
+                    <li>Compose </li>
                 </Link>
                 <Link style={navStyle} to='/manage'>
-                    <li>Manage Emails</li>
+                    <li>Manage </li>
                 </Link>  
-                <li style={navStyle}>
+                <a style={navStyle} href="/">
                 <div onClick={logout}>logout</div>                    
-                </li>          
+                </a>          
                 
             </ul>
         </nav>

@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { useForm, Controller } from 'react-hook-form';
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { userRegister, userLogin } from './../../redux/actions/userActions';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import {clearMessages} from './../../redux/actions/userActions';
+import Button from '@material-ui/core/Button'
+import { clearMessages } from './../../redux/actions/userActions';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -19,79 +20,78 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Login() {
-    
+
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const {  handleSubmit, errors, setValue, control } = useForm();
+    const { handleSubmit, errors, setValue, control } = useForm();
 
     const submitLogin = (data) => {
         console.log('login: ', data)
         dispatch(userLogin(data))
         setValue("userName", "")
-        setValue("password", "")        
+        setValue("password", "")
     }
 
     const submitRegister = (data) => {
         dispatch(userRegister(data))
         console.log('register: ', data)
         setValue("userName", "")
-        setValue("password", "")        
+        setValue("password", "")
     }
 
-    const clearMessage =()=>{        
+    const clearMessage = () => {
         dispatch(clearMessages())
     }
 
 
-    const {user:{errorMessage,successMessage }}=useSelector(state=>state)
-    
-    
-    return (
-        
-        <div>
-    
-            {/* <button onClick={swaltestFunc}>test swal</button> */}
+    const { user: { errorMessage, successMessage } } = useSelector(state => state)
 
-            {errorMessage && <span style={{
-                color:'red'
-            }}>{errorMessage}</span>}
-            {successMessage && <span style={{
-                color:'green'
-            }}>{successMessage}</span>}
-        <form className={classes.root} >            
-            <Controller
-                as={<TextField onFocus={()=>{clearMessage()}}/>}                                   
-                name="userName"
-                control={control}
-                defaultValue=""
-                placeholder="name"
-                rules={{ required: true }}                
-            />
-            {errors.userName && <span style={{
-                color: 'red'
-            }}>Please enter your name</span>}
-            <br />
-                        
-            <Controller
-                as={<TextField onFocus={()=>{clearMessage()}} /> }
-                name="password"
-                control={control}
-                defaultValue=""
-                placeholder="password"
-                rules={{ required: true}}
-            // ref={register({required:true})}
-            />
-            {errors.password && <span style={{
-                color: 'red'
-            }}>Please enter Password</span>}
-             <br />
-            <button onClick={handleSubmit(submitLogin)}>Login</button>
-            <br />
-            <button onClick={handleSubmit(submitRegister)}>Register</button>
-            <br />
-            {/* <input type="submit" /> */}
-        </form>
+
+    return (
+
+        <div>
+            <form className={classes.root} >
+                <Controller
+                    as={<TextField onFocus={() => { clearMessage() }} />}
+                    name="userName"
+                    control={control}
+                    defaultValue=""
+                    placeholder="name"
+                    rules={{ required: true }}
+                />
+                <br />
+
+                <Controller
+                    as={<TextField onFocus={() => { clearMessage() }} />}
+                    name="password"
+                    control={control}
+                    defaultValue=""
+                    placeholder="password"
+                    rules={{ required: true }}
+                />
+
+                <br />
+                <Button variant="contained" color="primary" onClick={handleSubmit(submitLogin)}>Login</Button>
+                <br />
+                <Button variant="contained" color="primary" onClick={handleSubmit(submitRegister)}>Register</Button>
+                <br />
+                {errorMessage && <Fragment><span style={{
+                    color: 'red'
+                }}>{errorMessage}</span> <br /></Fragment>}
+
+                {successMessage && <Fragment> <span style={{
+                    color: 'green'
+                }}>{successMessage}</span>  <br /></Fragment>}
+
+                {errors.userName && <Fragment><span style={{
+                    color: 'red'
+                }}>Please enter your name</span>  <br /></Fragment>}
+
+                {errors.password && <span style={{
+                    color: 'red'
+                }}>Please enter Password</span>}
+            </form>
         </div>
     )
 }

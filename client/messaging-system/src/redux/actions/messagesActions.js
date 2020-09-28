@@ -1,4 +1,11 @@
 
+export const CLEAR_MESSAGES_NOTIFICATIONS='CLEAR_MESSAGES_NOTIFICATIONS';
+export const clearNotifications =()=>{
+  return{
+    type: CLEAR_MESSAGES_NOTIFICATIONS
+  }
+}
+
 export const GET_MESSAGES_FAIL = 'GET_MESSAGES_FAIL';
 export const GET_MESSAGES = 'GET_MESSAGES';
 export const GET_MESSAGES_START = 'GET_MESSAGES_START';

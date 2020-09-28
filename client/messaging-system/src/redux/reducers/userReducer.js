@@ -3,7 +3,7 @@ import {
     REGISTER, REGISTER_FAIL, REGISTER_START,
     GET_USER_INFO, GET_USER_INFO_START, GET_USER_INFO_FAIL,
     LOGOUT, LOGOUT_FAIL, LOGOUT_START,
-    CLEAR_MESSAGES
+    CLEAR_LOGIN_MESSAGES
 } from './../actions/userActions';
 
 const INITIAL_STATE = {
@@ -17,7 +17,7 @@ const INITIAL_STATE = {
 
 export const user = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case CLEAR_MESSAGES:
+        case CLEAR_LOGIN_MESSAGES:
             return {...state,errorMessage: '', successMessage: ''}
         case LOGIN_START:
             return { ...state, isFetching: true, errorMessage: null, successMessage: '' }
