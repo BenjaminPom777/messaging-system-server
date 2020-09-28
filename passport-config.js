@@ -6,7 +6,7 @@ function initialize(passport, getUserByEmail, getUserById) {
     const user = getUserByEmail(email)
     if (user == null) {
       // return done(true, false, { message: 'No user with that email' })
-      return done('No user with that email', false)
+      return done('there is no user with that name', false)
     }
 
     try {

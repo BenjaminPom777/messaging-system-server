@@ -44,7 +44,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.get('/', (req, res) => {
-  res.json('I am ok!')
+  res.send('I am ok!')
 })
 
 
@@ -77,14 +77,14 @@ app.post('/api/register', (req, res) => {
     }
     for (const existingUser of users) {
       if (existingUser.email === user.email) {
-        return res.status(409).json('User with that username already exist')
+        return res.status(409).send('User with that username already exist')
       }
     }
     users.push(user);
     console.log('users :', users)
-    return res.status(200).json('ok')
+    return res.status(200).send('ok')
   } else {
-    return res.status(404).json('Some of the required parameters is missing')
+    return res.status(404).send('Some of the required parameters is missing')
   }
 })
 

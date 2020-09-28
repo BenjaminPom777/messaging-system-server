@@ -17,9 +17,9 @@ const postMessageHandler = (req, res) => {
     if (message.receiverId && message.senderId) {
         messages.push(message);
         console.log('messages :', messages)
-        return res.status(200).json('ok')
+        return res.status(200).send('ok')
     } else {
-        return res.status(404).json('Something went wrong')
+        return res.status(404).send('Something went wrong')
     }
 }
 
