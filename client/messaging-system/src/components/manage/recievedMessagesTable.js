@@ -47,7 +47,7 @@ export default function MessagesTable() {
 
     return (    
         <div>
-        <TableContainer >
+        <TableContainer component={Paper} >
             <Table className={classes.table} size="small" aria-label="a dense table">
                 <TableHead>
                     <TableRow>
