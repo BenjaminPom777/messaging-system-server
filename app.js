@@ -54,12 +54,10 @@ app.get('/', (req, res) => {
 
 app.post('/api/login', function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {  
-    if (err) { return res.status(500).send(err) }
-    // if (!user) { return res.redirect('/login'); }
+    if (err) { return res.status(500).send(err) }    
     if (user) {
-      req.logIn(user.id, function (err) { //serialization
-        if (err) { return next(err); }
-        // return res.redirect('/users/' + user.username);
+      req.logIn(user.id, function (err) { 
+        if (err) { return next(err); }    
         return res.status(200).send({ id: user.id, email: user.email })
       });
     }
