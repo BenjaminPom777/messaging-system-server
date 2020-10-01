@@ -5,18 +5,20 @@ import Typography from '@material-ui/core/Typography';
 
 
 export default function UserPage() {
-  
-    
+
+
     const { user } = useSelector(state => state)
     return (
         <div style={{
-            marginTop:'30px',
-            alignItems:'center',
-            display:'flex',
-            flexDirection:'column'
+            marginTop: '30px',
+            alignItems: 'center',
+            display: 'flex',
+            flexDirection: 'column'
         }}>
-            <Typography  variant="h4">Welcome to the messaging system</Typography>
-         
+            <Typography variant="h4">Welcome to the messaging system</Typography>
+            <Typography variant="subtitle1" gutterBottom>
+                Here users can send messages to each other by ID.
+            </Typography>
             <Typography>User Name : {user.email}</Typography>
             <Typography>ID: {user.userId}</Typography>
         </div>
