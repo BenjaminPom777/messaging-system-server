@@ -9,7 +9,7 @@ export default function UserPage() {
     
     const { user } = useSelector(state => state)
     return (
-        <div c style={{
+        <div style={{
             marginTop:'30px',
             alignItems:'center',
             display:'flex',

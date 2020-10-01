@@ -14,7 +14,6 @@ const port = process.env.PORT || 4000;
 
 
 const users = [];
-const messages = [];
 
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -52,9 +51,6 @@ app.get('/', (req, res) => {
 })
 
 
-app.get('/api/test', checkAuthenticated, (req, res) => {
-  res.status(200).send('ok ok ok')
-})
 
 app.post('/api/login', function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {  
@@ -94,7 +90,6 @@ app.post('/api/register', (req, res) => {
 
 app.delete('/api/logout', (req, res) => {
   req.logOut()
-  // res.redirect('/login')
   res.status(200).send('ok')
 })
 
@@ -116,8 +111,7 @@ function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next()
   }
-  console.log('Not authenticated!!! ')
-  res.redirect('/login')
+  res.status(403).send('not authenticated')
 }
 
 app.get('*', (req, res) => {

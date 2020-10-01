@@ -1,13 +1,13 @@
-import React, { Fragment } from 'react'
+import React, { Fragment,useEffect } from 'react'
 import { useForm, Controller } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import {  userLogin } from './../../redux/actions/userActions';
+import { userLogin } from './../../redux/actions/userActions';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button'
 import { clearMessages } from './../../redux/actions/userActions';
-import {  Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -21,7 +21,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Login() {
-    const { user: { errorMessage, successMessage ,isLogedIn } } = useSelector(state => state)    
+
+    useEffect(()=>{
+        clearMessage()
+    },[])
+
+    const { user: { errorMessage, successMessage, isLogedIn, isFetching } } = useSelector(state => state)
 
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -35,21 +40,20 @@ export default function Login() {
         setValue("password", "")
     }
 
+
+
     const clearMessage = () => {
         dispatch(clearMessages())
     }
 
-
-
-
-    return (      
+    return (
         <div style={{
-            textAlign:'center'
+            textAlign: 'center'
         }} >
-            {isLogedIn &&<Redirect 
+            {isLogedIn && <Redirect
                 to="/"
-            /> }
-            
+            />}
+
             <form className={classes.root} >
                 <Controller
                     as={<TextField onFocus={() => { clearMessage() }} />}
@@ -65,13 +69,13 @@ export default function Login() {
                     name="password"
                     control={control}
                     defaultValue=""
-                    placeholder="password"                    
+                    placeholder="password"
                     rules={{ required: true }}
                 />
 
                 <br />
-                <Button variant="contained"  onClick={handleSubmit(submitLogin)}>Login</Button>
-                <br />             
+                <Button variant="contained" disabled={isFetching} onClick={handleSubmit(submitLogin)}>Login</Button>
+                <br />
                 {errorMessage && <Fragment><span style={{
                     color: 'red'
                 }}>{errorMessage}</span> <br /></Fragment>}

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { useForm, Controller } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { userRegister } from './../../redux/actions/userActions';
@@ -22,7 +22,13 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Register() {
-    const { user: { errorMessage, successMessage ,isLogedIn } } = useSelector(state => state)    
+
+    useEffect(()=>{
+        clearMessage()
+    },[])
+
+    const { user: { errorMessage, successMessage ,isLogedIn, isFetching } } = useSelector(state => state)    
+
 
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -39,10 +45,6 @@ export default function Register() {
     const clearMessage = () => {
         dispatch(clearMessages())
     }
-
-
-   
-
 
     return (      
         <div  style={{
@@ -74,7 +76,7 @@ export default function Register() {
 
                 <br />
                
-                <Button variant="contained"  onClick={handleSubmit(submitRegister)}>Register</Button>
+                <Button variant="contained" disabled={isFetching}  onClick={handleSubmit(submitRegister)}>Register</Button>
                 <br />
                 {errorMessage && <Fragment><span style={{
                     color: 'red'
