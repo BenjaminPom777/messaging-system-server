@@ -1,14 +1,14 @@
-import React, { Fragment,useEffect } from 'react'
+import React, { Fragment } from 'react'
 import { useForm, Controller } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { userRegister, userLogin } from './../../redux/actions/userActions';
+import { userRegister } from './../../redux/actions/userActions';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button'
 import { clearMessages } from './../../redux/actions/userActions';
-import { Route, Redirect } from "react-router-dom";
-import passport from 'passport';
+import {  Redirect } from "react-router-dom";
+
 
 const useStyles = makeStyles((theme) => ({
     root: {

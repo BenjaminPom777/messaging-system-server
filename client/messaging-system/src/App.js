@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider, useSelector, useDispatch } from 'react-redux';

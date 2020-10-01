@@ -1,14 +1,14 @@
-import React, { Fragment,useEffect } from 'react'
+import React, { Fragment } from 'react'
 import { useForm, Controller } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { userRegister, userLogin } from './../../redux/actions/userActions';
+import {  userLogin } from './../../redux/actions/userActions';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button'
 import { clearMessages } from './../../redux/actions/userActions';
-import { Route, Redirect } from "react-router-dom";
-import Paper from '@material-ui/core/Paper';
+import {  Redirect } from "react-router-dom";
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Login() {
-    const { user: { errorMessage, successMessage ,isLogedIn },ux } = useSelector(state => state)    
+    const { user: { errorMessage, successMessage ,isLogedIn } } = useSelector(state => state)    
 
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -61,11 +61,11 @@ export default function Login() {
                 />
                 <br />
                 <Controller
-                    as={<TextField onFocus={() => { clearMessage() }} />}
+                    as={<TextField type="password" onFocus={() => { clearMessage() }} />}
                     name="password"
                     control={control}
                     defaultValue=""
-                    placeholder="password"
+                    placeholder="password"                    
                     rules={{ required: true }}
                 />
 
