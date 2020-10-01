@@ -3,7 +3,9 @@ import MessageForm from './MessageForm';
 function Compose() {
     
     return (
-        <div>
+        <div style={{
+            textAlign:'center'
+        }}>
             <MessageForm />            
         </div>
     )

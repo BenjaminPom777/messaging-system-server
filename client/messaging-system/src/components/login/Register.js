@@ -45,7 +45,9 @@ export default function Register() {
 
 
     return (      
-        <div>
+        <div  style={{
+            textAlign:'center'
+        }}>
             {isLogedIn &&<Redirect 
                 to="/"
             /> }
@@ -72,7 +74,7 @@ export default function Register() {
 
                 <br />
                
-                <Button variant="contained" color="primary" onClick={handleSubmit(submitRegister)}>Register</Button>
+                <Button variant="contained"  onClick={handleSubmit(submitRegister)}>Register</Button>
                 <br />
                 {errorMessage && <Fragment><span style={{
                     color: 'red'

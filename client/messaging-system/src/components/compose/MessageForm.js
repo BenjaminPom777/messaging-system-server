@@ -23,7 +23,7 @@ export default function MessageForm() {
     const onFocus = () => {
         dispatch(clearNotifications())
     }
-    // variant="contained" color="primary"
+    
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <Controller
@@ -57,7 +57,7 @@ export default function MessageForm() {
 
 
 
-            <Button variant="contained" color="primary" onFocus={onFocus} disabled={messages.isFetching} type="submit"  >Submit</Button><br />
+            <Button variant="contained"  onFocus={onFocus} disabled={messages.isFetching} type="submit"  >Submit</Button><br />
 
             {messages.notification && <Fragment><span style={{ color: 'green' }}>{messages.notification}</span><br /></Fragment>}
             {errors.receiverId && <Fragment> <span style={{

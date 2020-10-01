@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import './App.css';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider, useSelector, useDispatch } from 'react-redux';
@@ -45,21 +45,19 @@ function AppBody() {
     dispatch(getUserInfo(user.userId))
   }, [])
 
-  const { user } = useSelector(state => state)
+  const { user, ux } = useSelector(state => state)
 
   return (
     <Router>
 
-      <div className="App">
-      
-        {/* {user.isLogedIn  && <Nav />}                                     */}
-        <Nav />
-        <Switch>
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <ProtectedRoute path="/" exact component={userPage} />          
-          <ProtectedRoute path="/compose" component={Compose} />
-          <ProtectedRoute path="/manage" component={Manage} />
+      <Nav />
+      <div style={ux.closed ? { display: "block" } : { display: "none" }}>
+        <Switch>          
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+            <ProtectedRoute path="/" exact component={userPage} />
+            <ProtectedRoute path="/compose" component={Compose} />
+            <ProtectedRoute path="/manage" component={Manage} />          
         </Switch>
       </div>
     </Router>)

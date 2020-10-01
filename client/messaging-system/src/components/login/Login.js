@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Login() {
-    const { user: { errorMessage, successMessage ,isLogedIn } } = useSelector(state => state)    
+    const { user: { errorMessage, successMessage ,isLogedIn },ux } = useSelector(state => state)    
 
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -40,11 +40,12 @@ export default function Login() {
     }
 
 
-   
 
 
     return (      
-        <div>
+        <div style={{
+            textAlign:'center'
+        }} >
             {isLogedIn &&<Redirect 
                 to="/"
             /> }
@@ -69,7 +70,7 @@ export default function Login() {
                 />
 
                 <br />
-                <Button variant="contained" color="primary" onClick={handleSubmit(submitLogin)}>Login</Button>
+                <Button variant="contained"  onClick={handleSubmit(submitLogin)}>Login</Button>
                 <br />             
                 {errorMessage && <Fragment><span style={{
                     color: 'red'
