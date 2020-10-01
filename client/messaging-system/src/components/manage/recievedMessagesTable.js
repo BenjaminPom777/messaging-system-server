@@ -8,6 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button'
 
 import { deleteMessage } from '../../redux/actions/messagesActions';
 
@@ -76,7 +77,7 @@ export default function MessagesTable({type}) {
                                 </TableCell>
                                 <TableCell align="right">{row.message}</TableCell>
                                 <TableCell align="right">{type === 'recieved' ? row.senderId : row.receiverId}</TableCell>
-                                <TableCell align="right"><button onClick={() => deleteHandler(row.id)}>Delete</button></TableCell>                             
+                                <TableCell  align="right"><Button variant="outlined" color="secondary" onClick={() => deleteHandler(row.id)}>Delete</Button></TableCell>                             
                             </TableRow>
                         ))}
                     </TableBody>
