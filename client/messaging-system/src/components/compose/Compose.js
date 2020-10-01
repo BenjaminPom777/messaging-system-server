@@ -1,6 +1,6 @@
 import React from 'react';
 import MessageForm from './MessageForm';
-function Compose(props) {
+function Compose() {
     
     return (
         <div>

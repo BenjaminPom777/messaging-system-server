@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment,useEffect } from 'react'
 import { useForm, Controller } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { userRegister, userLogin } from './../../redux/actions/userActions';
@@ -7,6 +7,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button'
 import { clearMessages } from './../../redux/actions/userActions';
+import { Route, Redirect } from "react-router-dom";
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,8 +20,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
 export default function Login() {
+    const { user: { errorMessage, successMessage ,isLogedIn } } = useSelector(state => state)    
 
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -33,24 +35,20 @@ export default function Login() {
         setValue("password", "")
     }
 
-    const submitRegister = (data) => {
-        dispatch(userRegister(data))
-        console.log('register: ', data)
-        setValue("userName", "")
-        setValue("password", "")
-    }
-
     const clearMessage = () => {
         dispatch(clearMessages())
     }
 
 
-    const { user: { errorMessage, successMessage } } = useSelector(state => state)
+   
 
 
-    return (
-
+    return (      
         <div>
+            {isLogedIn &&<Redirect 
+                to="/"
+            /> }
+            
             <form className={classes.root} >
                 <Controller
                     as={<TextField onFocus={() => { clearMessage() }} />}
@@ -61,7 +59,6 @@ export default function Login() {
                     rules={{ required: true }}
                 />
                 <br />
-
                 <Controller
                     as={<TextField onFocus={() => { clearMessage() }} />}
                     name="password"
@@ -73,9 +70,7 @@ export default function Login() {
 
                 <br />
                 <Button variant="contained" color="primary" onClick={handleSubmit(submitLogin)}>Login</Button>
-                <br />
-                <Button variant="contained" color="primary" onClick={handleSubmit(submitRegister)}>Register</Button>
-                <br />
+                <br />             
                 {errorMessage && <Fragment><span style={{
                     color: 'red'
                 }}>{errorMessage}</span> <br /></Fragment>}

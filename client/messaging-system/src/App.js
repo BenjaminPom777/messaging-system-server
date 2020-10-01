@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
-import { Provider,useSelector ,useDispatch} from 'react-redux';
+import { Provider, useSelector, useDispatch } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
@@ -10,10 +10,11 @@ import Compose from './components/compose/Compose';
 import Manage from './components/manage/Manage';
 import Nav from './components/nav/Nav';
 import Login from './components/login/Login';
-import {getUserInfo} from './redux/actions/userActions'
+import Register from './components/login/Register';
+import { getUserInfo } from './redux/actions/userActions'
 import { mySaga } from './redux/sagas/Saga';
-import {ProtectedRoute} from './components/router/ProtectedRoute';
-import HomePage from './components/userPage/UserPage';
+import { ProtectedRoute } from './components/router/ProtectedRoute';
+import userPage from './components/userPage/UserPage';
 
 
 const rootReducer = combineReducers(
@@ -30,35 +31,37 @@ const store = createStore(rootReducer, composeEnhancers(applyMiddleware(sagaMidd
 sagaMiddleware.run(mySaga)
 
 function App() {
-  return (  
+  return (
     <Provider store={store}>
       <AppBody />
-      </Provider>      
+    </Provider>
   );
 }
 
-function AppBody(){
-  
+function AppBody() {
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUserInfo(user.userId))
-  }, [])   
-  
-  const {user}= useSelector(state=>state)
+  }, [])
+
+  const { user } = useSelector(state => state)
 
   return (
-   <Router>  
+    <Router>
+
+      <div className="App">
       
-        <div className="App">
-          {user.isLogedIn  && <Nav />}                                    
-              <Switch>
-                <ProtectedRoute path="/user" exact component={HomePage} />
-                <ProtectedRoute path="/compose" component={Compose} />
-                <ProtectedRoute path="/manage" component={Manage} />
-              </Switch>
-               {!user.isLogedIn &&  <Route path="/" component={Login} />}
-        
-        </div>
+        {/* {user.isLogedIn  && <Nav />}                                     */}
+        <Nav />
+        <Switch>
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          <ProtectedRoute path="/" exact component={userPage} />          
+          <ProtectedRoute path="/compose" component={Compose} />
+          <ProtectedRoute path="/manage" component={Manage} />
+        </Switch>
+      </div>
     </Router>)
 }
 

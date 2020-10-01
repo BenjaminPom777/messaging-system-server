@@ -21,11 +21,6 @@ function TabPanel(props) {
     dispatch(getMessages(user.userId))
 }, [user.userId, dispatch])
 
-
-
-
-
-
   return (
     <div
       role="tabpanel"
