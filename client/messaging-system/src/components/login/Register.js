@@ -36,8 +36,7 @@ export default function Register() {
     const { handleSubmit, errors, setValue, control } = useForm();
 
     const submitRegister = (data) => {
-        dispatch(userRegister(data))
-        console.log('register: ', data)
+        dispatch(userRegister(data))        
         setValue("userName", "")
         setValue("password", "")
     }

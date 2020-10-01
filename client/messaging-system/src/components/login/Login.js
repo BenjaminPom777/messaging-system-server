@@ -34,7 +34,6 @@ export default function Login() {
     const { handleSubmit, errors, setValue, control } = useForm();
 
     const submitLogin = (data) => {
-        console.log('login: ', data)
         dispatch(userLogin(data))
         setValue("userName", "")
         setValue("password", "")
