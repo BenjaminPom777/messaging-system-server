@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Register() {
 
     useEffect(()=>{
+        console.log('hello world')
         clearMessage()
     },[])
 
@@ -46,6 +47,7 @@ export default function Register() {
     }
 
     return (      
+        
         <div  style={{
             textAlign:'center'
         }}>
